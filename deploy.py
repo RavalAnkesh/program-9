@@ -36,7 +36,7 @@ compiled_sol = compile_standard(
 with open("compiled_code.json", "w") as file:
     json.dump(compiled_sol, file, indent=4)
 
-# Step 4: Extract bytecode and ABI
+# Step 4: Extract bytecode and ABi
 bytecode = compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["evm"]["bytecode"]["object"]
 abi = json.loads(compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["metadata"])["output"]["abi"]
 
@@ -63,7 +63,7 @@ if chain_id == 4:
 
 # Your Ganache account details
 my_address = "0x9ac4CC5C5d65637718cfD7585687404fd3c00A5A"
-private_key = "0x2385f0a365265d55d60a9def7e3eb0f30dd5415bf4e180ab934cf41dd7ad00b8"
+private_key = os.getenv("PRIVATE_KEY")
 
 # Step 6: Create contract instance in Python
 SimpleStorage = w3.eth.contract(abi=abi, bytecode=bytecode)
@@ -112,3 +112,4 @@ print("Updating stored value...")
 w3.eth.wait_for_transaction_receipt(tx_greeting_hash)
 
 print(f"Updated Stored Value: {simple_storage.functions.retrieve().call()}")
+
